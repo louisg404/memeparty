@@ -16,8 +16,14 @@ a{
 input:focus{
 	outline: none !important;
 }
+#game{
+	height: 75vh;
+	overflow: auto;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+}
 #messages {
-	height: 500px;
+	height: 60vh;
 	overflow: auto;
 	margin-bottom: 1em;
 	margin-right: 10px;
@@ -46,21 +52,45 @@ input:focus{
 	width: fit-content;
 	margin: 0 0 5px 0;
 }
+#send-form input{
+	width: 60%;
+}
 #room-list {
-  height: 300px;
-  overflow: auto;
+	height: 60vh;
+	overflow: auto;
 }
 #room-list div {
-  border-bottom: 1px solid #eee;
+	  background-color: #f2f2f2;
+	  border-radius: 5px;
+	  padding: 5px 10px;
+	  margin-bottom: 5px;
+	  width: fit-content;
 }
 #room-list div:hover {
-  background-color: #ddd;
+  	background-color: #ddd;
 }
 #send-message {
 	border-radius: 5px !important;
 	border: solid 1px transparent;
 	padding: 5px;
 }
-#help {
-  font-family: 'Lato', sans-serif;
+#send-answer {
+	border-radius: 5px !important;
+	border: solid 1px transparent;
+	padding: 5px;
+	width: 78%;
+}
+#send-answer-button {
+	background-color: #36CC5B;
+	border-color: transparent;
+	width: 20%;
+}
+.clients span{
+	margin-right: 10px;
+}
+.fa-check-circle{
+	color: #36CC5B;
+}
+.fa-times-circle{
+	color: tomato;
 }

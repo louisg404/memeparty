@@ -6,6 +6,10 @@ function divSystemContentElement(message){
 	return $('<div class="info-chat"></div').text(message);
 }
 
+function usersInRoom(client){
+	return $('<span></span>').text(client);
+}
+
 function processUserInput(chatApp, socket) {
 	var message = $('#send-message').val();
 	var systemMessage;
@@ -42,7 +46,6 @@ $(document).ready(function(){
 
 	socket.on('joinResult', function(result){
 		$('#room').text(result.room);
-		// $('#messages').append(divSystemContentElement('Nouveau salon'));
 	});
 
 	socket.on('message', function(message){
@@ -53,24 +56,35 @@ $(document).ready(function(){
 	});
 
 	socket.on('rooms', function(rooms) {
-	    $('#room-list').empty();
+		$('#room-list').empty();
 	    for(var room in rooms) {
-	    	room = room.substring(1, room.length);
+			room = room.substring(1, room.length);
 	    	if (room != '') {
-	    		$('#room-list').append(divEscapedContentElement(room));
-	    	}
+				$('#room-list').append(divEscapedContentElement(room));
+			}
 		}
 	    $('#room-list div').click(function() {
 			chatApp.processCommand('/salon ' + $(this).text());
 			$('#send-message').focus();
-		}); 
+		});
 	});
 
+	socket.on('clients', function(clients) {
+		$('#clients').empty();
+		$('#clients').append(usersInRoom(clients));
+	});
 
-	// every second the client sends a 'rooms' event to the server
-	// to ask for the rooms list
+	socket.on('game', function(game) {
+		console.log(game);
+	});
+
+	// Interroger la liste des 'rooms' toutes les secondes
 	setInterval(function(){
-		socket.emit('rooms')
+		socket.emit('rooms');
+	}, 1000);
+
+	setInterval(function(){
+		socket.emit('clients');
 	}, 1000);
 
 	$('#send-message').focus();
@@ -79,7 +93,6 @@ $(document).ready(function(){
 		processUserInput(chatApp, socket);
 		return false;
 	})
-
 })
 
 
