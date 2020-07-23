@@ -74,8 +74,8 @@ $(document).ready(function(){
 		$('#clients').append(usersInRoom(clients));
 	});
 
-	socket.on('game', function(game) {
-		console.log(game);
+	socket.on('game', function(data) {
+		//console.log(data);
 	});
 
 	// Interroger la liste des 'rooms' toutes les secondes
